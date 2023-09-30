@@ -1,0 +1,74 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "Main",
+            "id": "176bc987-6383-4cf5-bc39-4827daf65006",
+            "actions": [
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "b934d090-18ee-4cd8-bae9-bb51cc78c0c7",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MouseLeftButton",
+                    "type": "Button",
+                    "id": "f8d1ff75-4a85-4276-be71-d90a38318161",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseRightButton",
+                    "type": "Button",
+                    "id": "597397f0-bf27-4aad-88d0-8cd7805d4a0b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "95299c5c-b842-4829-934f-d784b0de152a",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3580b63e-430e-4199-a682-67ba2b1503a9",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseLeftButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4964af68-58d5-4456-9169-0ad82804ffa2",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseRightButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
