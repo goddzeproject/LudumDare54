@@ -14,9 +14,7 @@ public class InputManager : MonoBehaviour
     private PlayerControls playerInput;
 
     public Vector2 mousePosition;
-    private Vector3 intersectionPoint;
-    
-    //public Camera activeCamera;
+    public Vector2 realesePosition;
 
     
 
@@ -44,14 +42,15 @@ public class InputManager : MonoBehaviour
 
     private void LeftButton(InputAction.CallbackContext context)
     {
-        Player.GetComponent<PsiBlastLogic>().CreatePsiWave();
+        Player.GetComponent<PsiBlastLogic>().CreatePsiBlast();
         Debug.Log("AAAAAAA");
     }
+
 
     private void RightButton(InputAction.CallbackContext context)
     {
         Player.GetComponent<PsiLocatorLogic>().PsiLocate();
-        Debug.Log("BBBBBBB");
+        Debug.Log("CCCCCCC");
     }
 
     private void MousePosition(InputAction.CallbackContext context)
@@ -59,6 +58,7 @@ public class InputManager : MonoBehaviour
         Vector2 normalPosition = Camera.main.ScreenToViewportPoint(context.ReadValue<Vector2>());
         mousePosition = new Vector2(normalPosition.x * Screen.width, normalPosition.y * Screen.height);
         //Debug.Log(mousePosition);
+
     }
 
     private void OnDisable()

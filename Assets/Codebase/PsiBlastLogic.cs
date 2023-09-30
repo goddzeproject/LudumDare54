@@ -12,7 +12,9 @@ public class PsiBlastLogic : MonoBehaviour
     private Vector3[] startPosition;
     private Vector3 intersectionPoint;
 
-    // Start is called before the first frame update
+    public Transform cursor;
+
+
     void Start()
     {   
         psiPosition = transform.position;
@@ -28,8 +30,11 @@ public class PsiBlastLogic : MonoBehaviour
         inputManager = InputManager.instance;
     }
 
-    public void CreatePsiWave()
+    public void CreatePsiBlast()
     {
+
+
+
         Collider[] colliders = Physics.OverlapSphere(intersectionPoint, psiRadius);
         if (colliders.Length > 0)
         {
@@ -47,22 +52,9 @@ public class PsiBlastLogic : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, psiRadius);
-
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, psiRadius / 2);
+        Gizmos.DrawWireSphere(transform.position, psiRadius);
     }
-
-    //public void Reset()
-    //{
-    //    for (int i = 0; i < objects.Length; i++)
-    //    {
-    //        Rigidbody rb = objects[i].GetComponent<Rigidbody>();
-    //        rb.Sleep();
-    //        objects[i].position = startPosition[i];
-    //    }
-    //}
 
     private void Update()
     {
@@ -72,6 +64,7 @@ public class PsiBlastLogic : MonoBehaviour
         {
             intersectionPoint = hit.point;
             Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red, 1f);
+            cursor.position = intersectionPoint;
         }
     }
 }
