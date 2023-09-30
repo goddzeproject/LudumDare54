@@ -32,10 +32,6 @@ public class InputManager : MonoBehaviour
             Destroy(this.gameObject);
 
     }
-    //private void Start()
-    //{
-    //    activeCamera = Camera.main.GetComponent<CinemachineBrain>().OutputCamera;
-    //}
 
     private void OnEnable()
     {
@@ -54,6 +50,7 @@ public class InputManager : MonoBehaviour
 
     private void RightButton(InputAction.CallbackContext context)
     {
+        Player.GetComponent<PsiLocatorLogic>().PsiLocate();
         Debug.Log("BBBBBBB");
     }
 
