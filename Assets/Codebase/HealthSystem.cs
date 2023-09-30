@@ -9,15 +9,20 @@ public class HealthSystem : MonoBehaviour
     public float health;
 
     private Rigidbody rb;
+    private GameManager gameManager;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        gameManager = GameManager.instance;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         ChekDamage();
+
+        if (collision.collider.CompareTag("Finish"))
+            gameManager.ChekWin();
     }
 
 
@@ -48,8 +53,8 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void ShakeSindrome()
     {
-        Debug.Log(rb.velocity.magnitude);
+        // Camerca Shake if HP less 40;
     }
 }

@@ -47,7 +47,6 @@ public class PsiBlastLogic : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Wave is Called");
     }
 
     private void OnDrawGizmos()

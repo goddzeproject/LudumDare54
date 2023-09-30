@@ -43,21 +43,20 @@ public class InputManager : MonoBehaviour
     private void LeftButton(InputAction.CallbackContext context)
     {
         Player.GetComponent<PsiBlastLogic>().CreatePsiBlast();
-        Debug.Log("AAAAAAA");
+        Debug.Log("LeftButtonMouse");
     }
 
 
     private void RightButton(InputAction.CallbackContext context)
     {
         Player.GetComponent<PsiLocatorLogic>().PsiLocate();
-        Debug.Log("CCCCCCC");
+        Debug.Log("RightButtonMouse");
     }
 
     private void MousePosition(InputAction.CallbackContext context)
     {
         Vector2 normalPosition = Camera.main.ScreenToViewportPoint(context.ReadValue<Vector2>());
         mousePosition = new Vector2(normalPosition.x * Screen.width, normalPosition.y * Screen.height);
-        //Debug.Log(mousePosition);
 
     }
 
