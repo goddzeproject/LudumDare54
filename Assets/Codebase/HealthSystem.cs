@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Unity.Mathematics;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class HealthSystem : MonoBehaviour
 
     private Rigidbody rb;
     private GameManager gameManager;
+    private AudioManager audioManager;
 
     public Transform Brain;
     private Tween brainTweenIdle;
@@ -24,6 +26,7 @@ public class HealthSystem : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         gameManager = GameManager.instance;
+        audioManager = AudioManager.instance;
         //AnimationLoop();
     }
 
@@ -41,10 +44,12 @@ public class HealthSystem : MonoBehaviour
         if (Math.Abs(rb.velocity.magnitude) > 10f)
         {
             SetDamage(10f);
+            audioManager.Play("Fall1");
         }
         else if (Math.Abs(rb.velocity.magnitude) > 5f)
         {
             SetDamage(5f);
+            audioManager.Play("Fall3");
         }
         else
             return;
@@ -52,6 +57,7 @@ public class HealthSystem : MonoBehaviour
     private void SetDamage(float damage)
     {
         health -= damage;
+        audioManager.Play("GlassMoving");
         GlassBankAnim();
         ShakeSindrome();
         ChekDeath();
@@ -61,7 +67,7 @@ public class HealthSystem : MonoBehaviour
     {
         if (health <= 0)
         {
-            Debug.Log("THE END");
+            gameManager.ChekLose();
         }
     }
 
@@ -73,33 +79,41 @@ public class HealthSystem : MonoBehaviour
         brainTweenShake = Brain.transform.DOPunchPosition(Vector3.down * 0.1f, 2f, 10);
     }
 
-    private void AnimationLoop()
-    {
-        if (health > 0)
-        {
-            brainTweenIdle = Brain.DOScale(Vector3.one * 1.1f, 2f)
-            .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
-        }
-        else
-        {
-            brainTweenIdle.Kill();
-        }
-    }
+    //private void AnimationLoop()
+    //{
+    //    if (health > 0)
+    //    {
+    //        brainTweenIdle = Brain.DOScale(Vector3.one * 1.1f, 2f)
+    //        .SetEase(Ease.InOutSine)
+    //        .SetLoops(-1, LoopType.Yoyo);
+    //    }
+    //    else
+    //    {
+    //        brainTweenIdle.Kill();
+    //    }
+    //}
 
-    private void GlassBankAnim()
+    public void GlassBankAnim()
     {
-        if (health < 60 && health > 30)
+        if (health > 60)
         {
             GlassBankOrigin.mesh = GlassBanks[0];
+            audioManager.Play("BrainIdle");
+        }
+        if (health < 60 && health > 30)
+        {
+            GlassBankOrigin.mesh = GlassBanks[1];
+            audioManager.Play("BrainIdle");
         }
         else if (health < 30 && health > 00)
         {
-            GlassBankOrigin.mesh = GlassBanks[1];
+            GlassBankOrigin.mesh = GlassBanks[2];
+            audioManager.Play("BrainIdle");
         }
         else if (health < 0)
         {
-            GlassBankOrigin.mesh = GlassBanks[2];
+            GlassBankOrigin.mesh = GlassBanks[3];
+            audioManager.Play("BrainDeath");
         }
     }
 

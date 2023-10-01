@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99780eeaa0eb99f45803f451137eb883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 15
+  viewRadius: 1
   viewAngle: 360
   targetMask:
     serializedVersion: 2
@@ -95,6 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   increaseDuration: 2
   maxValue: 15
+  CdLocator: 0
+  isCDActive: 0
 --- !u!114 &8196890635958837973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +111,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   psiForce: 30
   psiRadius: 5
+  cdBlast: 2
+  isCDActive: 0
+  timeLeft: 0
   BlastVFX: {fileID: 8196890635978581946}
 --- !u!114 &7139057179620959642
 MonoBehaviour:

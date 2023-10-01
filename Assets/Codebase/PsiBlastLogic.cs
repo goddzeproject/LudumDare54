@@ -1,5 +1,6 @@
 using Cinemachine;
 using DG.Tweening;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +8,13 @@ public class PsiBlastLogic : MonoBehaviour
 {
     [SerializeField] float psiForce = 10f;
     [SerializeField] float psiRadius = 10f;
+
+    public float cdBlast = 2f;
+    public bool isCDActive;
+    public float timeLeft;
+
     private InputManager inputManager;
+    private AudioManager audioManager;
 
     private Vector3 intersectionPoint;
 
@@ -20,22 +27,28 @@ public class PsiBlastLogic : MonoBehaviour
         BlastVFX.SetParent(null);
         BlastVFX.gameObject.GetComponent<MeshRenderer>().enabled = false;
         inputManager = InputManager.instance;
+        audioManager = AudioManager.instance;
     }
 
     public void CreatePsiBlast()
     {
-        Collider[] colliders = Physics.OverlapSphere(intersectionPoint, psiRadius);
-        PsiBlastVFX();
-        if (colliders.Length > 0)
+        if (!isCDActive)
         {
-            foreach (Collider hit in colliders)
+            Collider[] colliders = Physics.OverlapSphere(intersectionPoint, psiRadius);
+            PsiBlastVFX();
+            audioManager.Play("PsiBlast");
+            if (colliders.Length > 0)
             {
-                Rigidbody rb = hit.GetComponent<Rigidbody>();
-                if (rb != null)
+                foreach (Collider hit in colliders)
                 {
-                    rb.AddExplosionForce(psiForce, intersectionPoint, psiRadius, 0f, ForceMode.Impulse);
+                    Rigidbody rb = hit.GetComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        rb.AddExplosionForce(psiForce, intersectionPoint, psiRadius, 0f, ForceMode.Impulse);
+                    }
                 }
             }
+            StartCdBlastTimer();
         }
     }
 
@@ -54,6 +67,13 @@ public class PsiBlastLogic : MonoBehaviour
             intersectionPoint = hit.point;
             Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red, 1f);
         }
+
+        if (isCDActive)
+        {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft < 0)
+                isCDActive = false;
+        }
     }
 
     private void PsiBlastVFX()
@@ -68,4 +88,11 @@ public class PsiBlastLogic : MonoBehaviour
     {
         BlastVFX.gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
+
+    private void StartCdBlastTimer()
+    {
+        timeLeft = cdBlast;
+        isCDActive = true;
+    }
+    
 }
