@@ -28,13 +28,19 @@ public class HealthSystem : MonoBehaviour
         gameManager = GameManager.instance;
         audioManager = AudioManager.instance;
         AnimationLoop();
+
+        gameManager.SetReferencesUI();
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
         ChekDamage();
+    }
 
-        if (collision.collider.CompareTag("Finish"))
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Finish"))
             gameManager.ChekWin();
     }
 
@@ -115,6 +121,11 @@ public class HealthSystem : MonoBehaviour
             GlassBankOrigin.mesh = GlassBanks[3];
             audioManager.Play("BrainDeath");
         }
+    }
+
+    private void OnDestroy()
+    {
+        brainTweenIdle.Kill();
     }
 
 }

@@ -11,9 +11,10 @@ public class InputManager : MonoBehaviour
 {   
     public static InputManager instance { get; private set; }
 
-    public GameObject Player;
+    private GameObject Player;
     private PlayerControls playerInput;
     private GameManager gameManager;
+    [HideInInspector]
     public Vector2 mousePosition;
 
     
@@ -33,6 +34,8 @@ public class InputManager : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.instance;
+        Player = GameObject.FindWithTag("Player");
+
     }
 
     private void OnEnable()
@@ -47,8 +50,10 @@ public class InputManager : MonoBehaviour
     private void LeftButton(InputAction.CallbackContext context)
     {
         gameManager.ShowCDBlast();
+        GetReference();
+
         Player.GetComponent<PsiBlastLogic>().CreatePsiBlast();
-        gameManager.PlayVFX(0);
+        gameManager.PlayVFX();
 
         Debug.Log("LeftButtonMouse");
     }
@@ -57,6 +62,7 @@ public class InputManager : MonoBehaviour
     private void RightButton(InputAction.CallbackContext context)
     {   
         gameManager.ShowCDLocator();
+        GetReference();
         Player.GetComponent<PsiLocatorLogic>().PsiLocate();
 
         Debug.Log("RightButtonMouse");
@@ -75,6 +81,14 @@ public class InputManager : MonoBehaviour
         playerInput.Main.MousePosition.performed -= MousePosition;
         playerInput.Main.MouseLeftButton.performed -= LeftButton;
         playerInput.Main.MouseRightButton.performed -= RightButton;
+    }
+
+    private void GetReference()
+    {
+        if (Player == null)
+        {
+            Player = GameObject.FindWithTag("Player");
+        }
 
     }
 }

@@ -13,28 +13,28 @@ public class GameManager : MonoBehaviour
 
     private InputManager inputManager;
     private AudioManager audioManager;
+    private UIManager uiManager;
 
     public GameObject FOVHelp;
-    public Collider WinBox;
-    public GameObject Player;
 
-    public ParticleSystem[] VFX;
+    private GameObject Player;
 
-    public TextMeshProUGUI CdBlastText;
-    public TextMeshProUGUI CdLocatorText;
+    private GameObject WinBox;
+    private ParticleSystem VFX;
 
-    public TextMeshProUGUI TutorialText;
+    private TextMeshProUGUI CdBlastText;
+    private TextMeshProUGUI CdLocatorText;
+
+    private TextMeshProUGUI TutorialText;
 
     private PsiBlastLogic psiBlastLogic;
     private PsiLocatorLogic psiLocatorLogic;
 
-    public Image HUD;
+    private Image HUD;
     private Tween HudFade;
 
-    public Image Menu;
+    private Image Menu;
 
-    public Transform[] AllObjects;
-    private Vector3[] startPropsPositions;
 
     // Start is called before the first frame update
     private void Awake()
@@ -55,22 +55,11 @@ public class GameManager : MonoBehaviour
     {   
         inputManager = InputManager.instance;
         audioManager = AudioManager.instance;
+        uiManager = UIManager.instance;
 
-        startPropsPositions = new Vector3[AllObjects.Length];
-        for (int i = 0; i < AllObjects.Length; i++)
-        {
-            startPropsPositions[i] = AllObjects[i].position;
-        }
+        SetReferencesUI();
 
-        foreach (var item in VFX)
-        {
-            item.Stop();
-        }
 
-        psiBlastLogic = Player.GetComponent<PsiBlastLogic>();
-        psiLocatorLogic = Player.GetComponent<PsiLocatorLogic>();
-        HUD.color = Color.black;
-        HudFade = HUD.DOFade(0f, 4f);
     }
 
     // Update is called once per frame
@@ -83,16 +72,10 @@ public class GameManager : MonoBehaviour
 
     public void ChekWin()
     {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex + 1);
         //Zaderjka i vizov Okna Pobedi
         Debug.Log("WIN");
-
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        if (currentSceneIndex+1 != 4)
-        {
-            SceneManager.LoadScene(currentSceneIndex + 1);
-        }
-        else
-            SceneManager.LoadScene(0);
 
     }
 
@@ -104,9 +87,15 @@ public class GameManager : MonoBehaviour
         Debug.Log("Lose");
     }
 
-    public void PlayVFX(int number)
-    {
-        VFX[number].Play();
+    public void PlayVFX()
+    {   
+        if (Player == null)
+        {
+            WinBox = GameObject.FindWithTag("Finish");
+            VFX = WinBox.GetComponent<ParticleSystem>();
+        }
+    
+        VFX.Play();
     }
 
     public void ShowCDBlast()
@@ -132,20 +121,34 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        Menu.color = Color.black;
-        Menu.gameObject.SetActive(false);
+        HudFade.Kill();
         Time.timeScale = 1f;
 
-        HudFade.Kill();
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+
+        SetReferencesUI();
+    }
+
+    public void SetReferencesUI()
+    {
+        CdBlastText = uiManager.CdBlastText;
+        CdLocatorText = uiManager.CdLocatorText;
+        TutorialText = uiManager.TutorialText;
+        HUD = uiManager.HUD;
+        Menu = uiManager.Menu;
+
+        WinBox = GameObject.FindWithTag("Finish");
+        WinBox.SetActive(true);
+        VFX = WinBox.GetComponent<ParticleSystem>();
+        VFX.Stop();
+
+
+        Player = GameObject.FindWithTag("Player");
+        psiBlastLogic = Player.GetComponent<PsiBlastLogic>();
+        psiLocatorLogic = Player.GetComponent<PsiLocatorLogic>();
+
         HUD.color = Color.black;
-        HudFade = HUD.DOFade(0f, 3f);
-        Player.GetComponent<HealthSystem>().health = 100;
-        Player.GetComponent<HealthSystem>().GlassBankAnim();
-        for (int i = 0; i < AllObjects.Length; i++)
-        {
-            Rigidbody rb = AllObjects[i].GetComponent<Rigidbody>();
-            rb.Sleep();
-            AllObjects[i].position = startPropsPositions[i];
-        }
+        HudFade = HUD.DOFade(0f, 4f);
     }
 }

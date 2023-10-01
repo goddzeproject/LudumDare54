@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4360917202449505349}
   - component: {fileID: -2271882343286335955}
   - component: {fileID: 6124819471808883731}
-  - component: {fileID: 4360917203267732550}
-  m_Layer: 7
+  - component: {fileID: 4360917203267732552}
+  m_Layer: 0
   m_Name: WinBox
   m_TagString: Finish
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -4780,7 +4780,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 240856bc088be1345ab912af241c6e4f, type: 2}
+  - {fileID: 2100000, guid: 94a321deaaa06584598d00589007c81e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4831,8 +4831,8 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!135 &4360917203267732550
-SphereCollider:
+--- !u!65 &4360917203267732552
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4842,5 +4842,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Size: {x: 4, y: 6, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
