@@ -27,7 +27,7 @@ public class HealthSystem : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         gameManager = GameManager.instance;
         audioManager = AudioManager.instance;
-        //AnimationLoop();
+        AnimationLoop();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -79,19 +79,19 @@ public class HealthSystem : MonoBehaviour
         brainTweenShake = Brain.transform.DOPunchPosition(Vector3.down * 0.1f, 2f, 10);
     }
 
-    //private void AnimationLoop()
-    //{
-    //    if (health > 0)
-    //    {
-    //        brainTweenIdle = Brain.DOScale(Vector3.one * 1.1f, 2f)
-    //        .SetEase(Ease.InOutSine)
-    //        .SetLoops(-1, LoopType.Yoyo);
-    //    }
-    //    else
-    //    {
-    //        brainTweenIdle.Kill();
-    //    }
-    //}
+    private void AnimationLoop()
+    {
+        if (health > 0)
+        {
+            brainTweenIdle = Brain.DOScale(Vector3.one * 1.1f, 2f)
+            .SetEase(Ease.InOutSine)
+            .SetLoops(-1, LoopType.Yoyo);
+        }
+        else
+        {
+            brainTweenIdle.Kill();
+        }
+    }
 
     public void GlassBankAnim()
     {

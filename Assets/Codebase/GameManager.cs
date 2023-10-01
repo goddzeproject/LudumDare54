@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
 
     public void ShowCDBlast()
     {
-        if (!psiBlastLogic.isCDActive)
+        if (psiBlastLogic.isCDActive)
         {
             CdBlastText.alpha = 1f;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(CdBlastText.rectTransform.parent as RectTransform, inputManager.mousePosition, null, out Vector2 localMousePosition);
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
     }
     public void ShowCDLocator()
     {
-        if (!psiLocatorLogic.isCDActive)
+        if (psiLocatorLogic.isCDActive)
         {
             CdLocatorText.alpha = 1f;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(CdBlastText.rectTransform.parent as RectTransform, inputManager.mousePosition, null, out Vector2 localMousePosition);
