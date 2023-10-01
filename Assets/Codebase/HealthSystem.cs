@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -11,10 +12,19 @@ public class HealthSystem : MonoBehaviour
     private Rigidbody rb;
     private GameManager gameManager;
 
+    public Transform Brain;
+    private Tween brainTweenIdle;
+    private Tween brainTweenShake;
+
+    public MeshFilter GlassBankOrigin;
+    public Mesh[] GlassBanks;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         gameManager = GameManager.instance;
+        //AnimationLoop();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -42,6 +52,8 @@ public class HealthSystem : MonoBehaviour
     private void SetDamage(float damage)
     {
         health -= damage;
+        GlassBankAnim();
+        ShakeSindrome();
         ChekDeath();
     }
 
@@ -53,8 +65,42 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
+
     private void ShakeSindrome()
     {
-        // Camerca Shake if HP less 40;
+        // MB added Camera Shake?
+        brainTweenShake.Kill();
+        brainTweenShake = Brain.transform.DOPunchPosition(Vector3.down * 0.1f, 2f, 10);
     }
+
+    private void AnimationLoop()
+    {
+        if (health > 0)
+        {
+            brainTweenIdle = Brain.DOScale(Vector3.one * 1.1f, 2f)
+            .SetEase(Ease.InOutSine)
+            .SetLoops(-1, LoopType.Yoyo);
+        }
+        else
+        {
+            brainTweenIdle.Kill();
+        }
+    }
+
+    private void GlassBankAnim()
+    {
+        if (health < 60 && health > 30)
+        {
+            GlassBankOrigin.mesh = GlassBanks[0];
+        }
+        else if (health < 30 && health > 00)
+        {
+            GlassBankOrigin.mesh = GlassBanks[1];
+        }
+        else if (health < 0)
+        {
+            GlassBankOrigin.mesh = GlassBanks[2];
+        }
+    }
+
 }

@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject Player;
 
+    public ParticleSystem[] VFX;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -30,7 +32,10 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-
+        foreach (var item in VFX)
+        {
+            item.Stop();
+        }
     }
 
     // Update is called once per frame
@@ -55,5 +60,9 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void PlayVFX(int number)
+    {
+        VFX[number].Play();
+    }
 
 }

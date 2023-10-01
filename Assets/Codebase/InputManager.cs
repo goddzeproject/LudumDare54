@@ -1,4 +1,5 @@
 using Cinemachine;
+using DG.Tweening.Core.Easing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ public class InputManager : MonoBehaviour
 
     public GameObject Player;
     private PlayerControls playerInput;
+    private GameManager gameManager;
 
     public Vector2 mousePosition;
     public Vector2 realesePosition;
@@ -31,6 +33,11 @@ public class InputManager : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        gameManager = GameManager.instance;
+    }
+
     private void OnEnable()
     {
         playerInput.Enable();
@@ -43,6 +50,7 @@ public class InputManager : MonoBehaviour
     private void LeftButton(InputAction.CallbackContext context)
     {
         Player.GetComponent<PsiBlastLogic>().CreatePsiBlast();
+        gameManager.PlayVFX(0);
         Debug.Log("LeftButtonMouse");
     }
 
@@ -50,6 +58,7 @@ public class InputManager : MonoBehaviour
     private void RightButton(InputAction.CallbackContext context)
     {
         Player.GetComponent<PsiLocatorLogic>().PsiLocate();
+
         Debug.Log("RightButtonMouse");
     }
 
