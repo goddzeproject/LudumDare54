@@ -6,6 +6,7 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -137,6 +138,8 @@ public class GameManager : MonoBehaviour
         TutorialText = uiManager.TutorialText;
         HUD = uiManager.HUD;
         Menu = uiManager.Menu;
+        
+        Menu.gameObject.SetActive(false);
 
         WinBox = GameObject.FindWithTag("Finish");
         WinBox.SetActive(true);
