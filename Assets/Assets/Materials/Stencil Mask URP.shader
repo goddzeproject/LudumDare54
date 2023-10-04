@@ -9,7 +9,7 @@ Shader "Custom/Stencil Mask URP"
         Tags { "RenderType"="Opaque" "Queue"="Geometry-100"}
         ColorMask 0
         Zwrite off
-        LOD 200
+        LOD 300
 
         Stencil {
             Ref 1

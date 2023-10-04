@@ -388,6 +388,14 @@ Shader "Custom/Stencil Lit Object"
         Tags{"RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "UniversalMaterialType" = "Lit" "IgnoreProjector" = "True" "ShaderModel"="2.0"}
         LOD 300
 
+        Stencil
+        {
+            Ref 1
+
+            Comp equal
+        }
+        
+
         // ------------------------------------------------------------------
         //  Forward pass. Shades all light in a single pass. GI + emission + Fog
         Pass

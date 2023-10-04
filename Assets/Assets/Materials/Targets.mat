@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Targets
-  m_Shader: {fileID: 4800000, guid: bd1058c253f4e864db7d5e46183a1c8a, type: 3}
+  m_Shader: {fileID: 4800000, guid: fe304630430130746a46b3a4237930d4, type: 3}
   m_ValidKeywords:
   - _RECEIVE_SHADOWS_OFF
   - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
@@ -16,7 +16,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
